@@ -21,7 +21,7 @@ namespace alexa_bedtime.function
             var requestData = req.ReadAsStringAsync().Result;
             log.LogInformation($"Received Request with data: {requestData}");
 
-            if (requestData.Contains("AMAZON.StopIntent") || requestData.Contains("AMAZON.CancelIntent"))
+            if (requestData.Contains("AMAZON.StopIntent") || requestData.Contains("AMAZON.CancelIntent")|| requestData.Contains("AMAZON.PauseIntent"))
             {
                 var stopResult = GetStopResponse();
 
