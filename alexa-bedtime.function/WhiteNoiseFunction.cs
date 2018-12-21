@@ -6,6 +6,7 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace alexa_bedtime.function
 {
@@ -16,18 +17,25 @@ namespace alexa_bedtime.function
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
 
             var requestData = req.ReadAsStringAsync().Result;
+            log.LogInformation($"Received Request with data: {requestData}");
 
             if (requestData.Contains("AMAZON.StopIntent") || requestData.Contains("AMAZON.CancelIntent"))
             {
                 var stopResult = GetStopResponse();
 
+                var stopResponseData = JsonConvert.SerializeObject(stopResult);
+                log.LogInformation($"Returning Stop Response: {stopResponseData}");
+
                 return new OkObjectResult(stopResult);
             }
 
-            var result = GetAudioResponse();
+            var result = GetPlaybackResponse();
+
+            var responseData = JsonConvert.SerializeObject(result);
+            log.LogInformation($"Returning Playback Response: {responseData}");
+
 
             return new OkObjectResult(result);
         }
@@ -55,7 +63,7 @@ namespace alexa_bedtime.function
             return result;
         }
 
-        private static dynamic GetAudioResponse()
+        private static dynamic GetPlaybackResponse()
         {
             dynamic result = new ExpandoObject();
             result.version = "1.0";
