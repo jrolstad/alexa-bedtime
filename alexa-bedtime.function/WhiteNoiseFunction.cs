@@ -59,7 +59,7 @@ namespace alexa_bedtime.function
             audioDirective.playBehavior = "REPLACE_ALL";
             audioDirective.audioItem = new ExpandoObject();
             audioDirective.audioItem.stream = new ExpandoObject();
-            audioDirective.audioItem.stream.url ="https://alexabedtime.blob.core.windows.net/sounds/Light-rain-sound-effect.mp3";
+            audioDirective.audioItem.stream.url = "https://alexabedtime.blob.core.windows.net/sounds/10-hours-rain.mp3";
             audioDirective.audioItem.stream.token = "0";
             audioDirective.audioItem.stream.offsetInMilliseconds = 0;
             result.response.directives = new List<dynamic>
