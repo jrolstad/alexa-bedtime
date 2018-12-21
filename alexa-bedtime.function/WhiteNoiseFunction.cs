@@ -34,16 +34,25 @@ namespace alexa_bedtime.function
 
         private static dynamic GetStopResponse()
         {
-            dynamic stopResult = new ExpandoObject();
+            dynamic result = new ExpandoObject();
 
-            stopResult.version = "1.1";
-            stopResult.response = new ExpandoObject();
-            stopResult.response.shouldEndSession = true;
-            stopResult.response.card = new ExpandoObject();
-            stopResult.response.card.type = "Simple";
-            stopResult.response.card.title = "AMAZON.CancelIntent";
-            stopResult.response.card.content = "Thank you for using bedtime.  Goodbye";
-            return stopResult;
+            result.version = "1.1";
+            result.response = new ExpandoObject();
+            result.response.shouldEndSession = true;
+            result.response.card = new ExpandoObject();
+            result.response.card.type = "Simple";
+            result.response.card.title = "Bedtime";
+            result.response.card.content = "Enjoy your day!";
+
+            dynamic audioDirective = new ExpandoObject();
+            audioDirective.type = "AudioPlayer.Stop";
+
+            result.response.directives = new List<dynamic>
+            {
+                audioDirective
+            };
+
+            return result;
         }
 
         private static dynamic GetAudioResponse()
