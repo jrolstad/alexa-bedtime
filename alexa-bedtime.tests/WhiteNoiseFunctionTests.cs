@@ -11,13 +11,16 @@ namespace alexa_bedtime.tests
 {
     public class WhiteNoiseFunctionTests
     {
-        [Fact]
-        public async Task Run_StartIntent_ReturnsAudioPlayerResult()
+        [Theory]
+        [InlineData("whitenoise-startplayback-request.json")]
+        public async Task Run_StartIntent_ReturnsAudioPlayerResult(string requestFile)
         {
             // Arrange
             var root = TestCompositionRoot.Create();
 
-            var request = root.WithPostRequest("");
+            var requestData = root.WithInputFile($"alexa_bedtime.tests.TestData.Requests.{requestFile}");
+            var request = root.WithPostRequest(requestData);
+
             var logger = root.Get<ILogger>();
             
             // Act

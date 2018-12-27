@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "session": {
+    "new": true,
+    "sessionId": "amzn1.echo-api.session.1234",
+    "application": { "applicationId": "amzn1.ask.skill.12345-678910-11-12" },
+    "user": { "userId": "amzn1.ask.account.theuser" }
+  },
+  "context": {
+    "AudioPlayer": {
+      "offsetInMilliseconds": 31342903,
+      "token": "0",
+      "playerActivity": "PLAYING"
+    },
+    "System": {
+      "application": { "applicationId": "amzn1.ask.skill.12345-678910-11-12" },
+      "user": { "userId": "amzn1.ask.account.theuser" },
+      "device": {
+        "deviceId": "amzn1.ask.device.bestechoever",
+        "supportedInterfaces": { "AudioPlayer": {} }
+      },
+      "apiEndpoint": "https://api.amazonalexa.com",
+      "apiAccessToken": "super-secret-dont-tell"
+    },
+    "Viewport": {
+      "experiences": [
+        {
+          "arcMinuteWidth": 144,
+          "arcMinuteHeight": 144,
+          "canRotate": false,
+          "canResize": false
+        }
+      ],
+      "shape": "ROUND",
+      "pixelWidth": 480,
+      "pixelHeight": 480,
+      "dpi": 160,
+      "currentPixelWidth": 480,
+      "currentPixelHeight": 480,
+      "touch": [ "SINGLE" ],
+      "keyboard": []
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "amzn1.echo-api.request.123456",
+    "timestamp": "2018-12-26T14:35:21Z",
+    "locale": "en-US",
+    "intent": {
+      "name": "AMAZON.PauseIntent",
+      "confirmationStatus": "NONE"
+    }
+  }
+}

@@ -7,14 +7,14 @@ namespace alexa_bedtime.tests.TestUtility.Extensions
 {
     public static class HttpRequestExtensions
     {
-        public static HttpRequest WithPostRequest(this TestCompositionRoot root, string body)
+        public static HttpRequest WithPostRequest(this TestCompositionRoot root, Stream body)
         {
-            var request = new DefaultHttpRequest(new DefaultHttpContext());
+            body.Position = 0;
+            var request = new DefaultHttpRequest(new DefaultHttpContext())
+            {
+                Body = body
+            };
 
-            var byteArray = Encoding.ASCII.GetBytes(body);
-            var stream = new MemoryStream(byteArray);
-
-            request.Body = stream;
 
             return request;
         }
