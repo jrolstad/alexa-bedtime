@@ -28,9 +28,7 @@ namespace alexa_bedtime.tests
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var typedResult = (OkObjectResult) result;
-
-            dynamic resultData = typedResult.Value;
+            var resultData = result.Value<dynamic>();
 
             Assert.Equal("1.0",resultData.version);
             Assert.Equal(true,resultData.response.shouldEndSession);
