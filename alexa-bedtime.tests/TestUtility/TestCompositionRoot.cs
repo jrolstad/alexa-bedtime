@@ -32,6 +32,6 @@ namespace alexa_bedtime.tests.TestUtility
 
     public class TestContext
     {
-        public List<string> LogMessages = new List<string>();
+        public List<FakeLogMessage> LogMessages = new List<FakeLogMessage>();
     }
 }
