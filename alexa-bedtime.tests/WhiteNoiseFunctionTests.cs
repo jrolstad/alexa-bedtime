@@ -38,6 +38,9 @@ namespace alexa_bedtime.tests
             Assert.Equal(1,resultData.response.directives.Count);
 
             var playDirective = resultData.response.directives[0];
+            Assert.Equal("AudioPlayer.Play", playDirective.type);
+            Assert.Equal("REPLACE_ALL",playDirective.playBehavior);
+
             Assert.Equal("0",playDirective.audioItem.stream.token);
             Assert.Equal(0,playDirective.audioItem.stream.offsetInMilliseconds);
             Assert.Equal("https://alexabedtime.blob.core.windows.net/sounds/10-hours-rain-96bps.mp3", playDirective.audioItem.stream.url);
