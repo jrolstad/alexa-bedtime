@@ -44,5 +44,33 @@ namespace alexa_bedtime.tests
             Assert.Equal("https://alexabedtime.blob.core.windows.net/sounds/10-hours-rain-96bps.mp3", playDirective.audioItem.stream.url);
 
         }
+
+        [Theory]
+        [InlineData("whitenoise-stopplayback-request.json")]
+        public async Task Run_StopIntent_ReturnsStopResult(string requestFile)
+        {
+            // Arrange
+            var root = TestCompositionRoot.Create();
+
+            var requestData = root.WithInputFile($"alexa_bedtime.tests.TestData.Requests.{requestFile}");
+            var request = root.WithPostRequest(requestData);
+
+            var logger = root.Get<ILogger>();
+
+            // Act
+            var result = await WhiteNoiseFunction.Run(request, logger);
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            var resultData = result.Value<dynamic>();
+
+            Assert.Equal("1.1", resultData.version);
+            Assert.Equal(true, resultData.response.shouldEndSession);
+
+            Assert.Equal("Simple",resultData.response.card.type);
+            Assert.Equal("Bedtime",resultData.response.card.title);
+            Assert.Equal("Enjoy your day!",resultData.response.card.content);
+
+        }
     }
 }
