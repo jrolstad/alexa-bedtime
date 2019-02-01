@@ -16,4 +16,12 @@
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Models\" />
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Mappers\AlexaRequestMapper.cs" />
+  </ItemGroup>
 </Project>

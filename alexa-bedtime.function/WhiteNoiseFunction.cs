@@ -7,6 +7,8 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using alexa_bedtime.function.Models;
+using alexa_bedtime.function.Extensions;
 
 namespace alexa_bedtime.function
 {
@@ -18,10 +20,12 @@ namespace alexa_bedtime.function
             ILogger log)
         {
 
-            var requestData = req.ReadAsStringAsync().Result;
+            var request = await req.ReadBody<AlexaRequest>();
+
             log.LogInformation($"Received Request with data: {requestData}");
 
-            if (requestData.Contains("AMAZON.StopIntent") || requestData.Contains("AMAZON.CancelIntent")|| requestData.Contains("AMAZON.PauseIntent"))
+
+            if (request.HasStopIntent())
             {
                 var stopResult = GetStopResponse();
 
