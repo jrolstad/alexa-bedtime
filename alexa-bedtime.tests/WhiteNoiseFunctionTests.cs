@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using alexa_bedtime.function;
+using alexa_bedtime.function.Models;
 using alexa_bedtime.tests.TestUtility;
 using alexa_bedtime.tests.TestUtility.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -30,12 +31,12 @@ namespace alexa_bedtime.tests
             
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var resultData = result.Value<dynamic>();
+            var resultData = result.Value<AlexaResponse>();
 
             Assert.Equal("1.0",resultData.version);
-            Assert.Equal(true,resultData.response.shouldEndSession);
+            Assert.True(resultData.response.shouldEndSession);
 
-            Assert.Equal(1,resultData.response.directives.Count);
+            Assert.Single(resultData.response.directives);
 
             var playDirective = resultData.response.directives[0];
             Assert.Equal("AudioPlayer.Play", playDirective.type);
@@ -65,10 +66,10 @@ namespace alexa_bedtime.tests
 
             // Assert
             Assert.IsType<OkObjectResult>(result);
-            var resultData = result.Value<dynamic>();
+            var resultData = result.Value<AlexaResponse>();
 
             Assert.Equal("1.1", resultData.version);
-            Assert.Equal(true, resultData.response.shouldEndSession);
+            Assert.True(resultData.response.shouldEndSession);
 
             Assert.Equal("Simple",resultData.response.card.type);
             Assert.Equal("Bedtime",resultData.response.card.title);

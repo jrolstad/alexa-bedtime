@@ -99,5 +99,7 @@ namespace alexa_bedtime.function.Models
         public Session session { get; set; }
         public Context context { get; set; }
         public Request request { get; set; }
+
+        public string raw { get; set; }
     }
 }
