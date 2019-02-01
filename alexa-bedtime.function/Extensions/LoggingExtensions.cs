@@ -20,7 +20,7 @@ namespace alexa_bedtime.function.Extensions
                 {"intent",request.Intent()},
                 {"sessionId",request?.session?.sessionId},
                 {"application",request?.session?.application?.applicationId},
-                {"userId",request?.session.user?.userId},
+                {"userId",request?.session?.user?.userId},
                 {"deviceId",request?.context?.System?.device?.deviceId}
             };
 
