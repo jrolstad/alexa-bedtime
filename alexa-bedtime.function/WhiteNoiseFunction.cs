@@ -25,11 +25,12 @@ namespace alexa_bedtime.function
             var request = await req.ReadBody<AlexaRequest>();
             log.LogRequest(request);
 
-            var result = request.HasStopIntent() ?
+            var response = request.HasStopIntent() ?
                mapper.MapStopRequest(request) :
                mapper.MapPlaybackResponse(request);
 
-            return new OkObjectResult(result);
+            log.LogResponse(request, response);
+            return new OkObjectResult(response);
 
         }
     }

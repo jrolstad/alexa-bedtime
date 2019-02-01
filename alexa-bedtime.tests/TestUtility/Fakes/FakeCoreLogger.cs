@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 
 namespace alexa_bedtime.tests.TestUtility.Fakes
@@ -17,9 +19,10 @@ namespace alexa_bedtime.tests.TestUtility.Fakes
             {
                 Level = logLevel,
                 Exception = exception,
-                Message = formatter(state, exception)
+                Message = formatter(state, exception),
+                Data = state
             };
-
+           
             _context.LogMessages.Add(message);
         }
 
@@ -47,6 +50,6 @@ namespace alexa_bedtime.tests.TestUtility.Fakes
         public LogLevel Level { get; set; }
         public Exception Exception { get; set; }
         public string Message { get; set; }
-
+        public object Data { get; set; }
     }
 }

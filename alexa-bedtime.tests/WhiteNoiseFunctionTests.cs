@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace alexa_bedtime.tests
             Assert.Equal(0,playDirective.audioItem.stream.offsetInMilliseconds);
             Assert.Equal("https://alexabedtime.blob.core.windows.net/sounds/10-hours-rain-96bps.mp3", playDirective.audioItem.stream.url);
 
-            AssertRequestIsLogged(root, requestData);
+            AssertRequestIsLogged(root);
         }
 
         [Theory]
@@ -75,16 +76,19 @@ namespace alexa_bedtime.tests
             Assert.Equal("Bedtime",resultData.response.card.title);
             Assert.Equal("Enjoy your day!",resultData.response.card.content);
 
+            var playDirective = resultData.response.directives[0];
+            Assert.Equal("AudioPlayer.Stop", playDirective.type);
+
         }
 
-        private void AssertRequestIsLogged(TestCompositionRoot root, Stream request)
+        private void AssertRequestIsLogged(TestCompositionRoot root)
         {
-            var reader = new StreamReader(request);
-            var requestData = reader.ReadToEnd();
             var requestMessages = root
                 .Context
                 .LogMessages
-                .Count(m => m.Message.Contains(requestData));
+                .Select(m => m.Data)
+                .Cast<Dictionary<string, object>>()
+                .Count(d => d["action"] == "alexa-request");
 
             Assert.Equal(1,requestMessages);
         }

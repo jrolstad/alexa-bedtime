@@ -13,7 +13,7 @@ namespace alexa_bedtime.function.Extensions
         {
             var requestBody = JsonConvert.SerializeObject(request);
 
-            var values = new Dictionary<string, string>
+            var values = new Dictionary<string, object>
             {
                 {"action","alexa-request"},
                 {"body",requestBody},
@@ -24,7 +24,7 @@ namespace alexa_bedtime.function.Extensions
                 {"deviceId",request?.context?.System?.device?.deviceId}
             };
 
-            logger.LogTrace("Received request", values);
+            logger.LogTraceWithValues("Received request", values);
 
         }
 
@@ -38,18 +38,18 @@ namespace alexa_bedtime.function.Extensions
                 .Select(d => d.type);
             var directivesString = string.Join("|", directives);
 
-            var values = new Dictionary<string, string>
+            var values = new Dictionary<string, object>
             {
                 {"action","alexa-response"},
                 {"body",responseBody},
-                {"session-id",request?.session?.sessionId},
+                {"sessionId",request?.session?.sessionId},
                 {"directives",directivesString}
             };
 
-            logger.LogTrace("Returning response", values);
+            logger.LogTraceWithValues("Returning response", values);
         }
 
-        public static void LogTrace(this ILogger logger, string message, Dictionary<string,object> values)
+        public static void LogTraceWithValues(this ILogger logger, string message, Dictionary<string, object> values)
         {
             logger.Log(LogLevel.Trace, new EventId(), values, null, (Dictionary<string, object> arg1, Exception arg2) => message);
         }
